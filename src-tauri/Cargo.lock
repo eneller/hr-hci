@@ -1838,11 +1838,13 @@ name = "keeb"
 version = "0.1.0"
 dependencies = [
  "enigo",
+ "raw-window-handle",
  "serde",
  "serde_json",
  "tauri",
  "tauri-build",
  "tauri-plugin-opener",
+ "x11",
 ]
 
 [[package]]
