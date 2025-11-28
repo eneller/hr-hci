@@ -1,5 +1,4 @@
 use enigo::{Direction::Click, Enigo, Key, Keyboard, Settings};
-use raw_window_handle::{HasRawWindowHandle, RawWindowHandle, WindowHandle};
 use std::ptr;
 use tauri::Manager;
 
@@ -19,6 +18,7 @@ pub fn run() {
             #[cfg(target_os = "linux")]
             {
                 use x11::xlib;
+                use raw_window_handle::{HasRawWindowHandle, RawWindowHandle, WindowHandle};
                 // raw X11 pointers here
                 unsafe {
                     let handle = window.raw_window_handle();
