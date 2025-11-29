@@ -16,4 +16,56 @@
     <button type="submit">Greet</button>
   </form>
   <p>{{ greetingMessage }}</p>
+<div class="keyboard">
+  <!-- Row 1: Q W E R T Y U I O P -->
+  <div class="keyboard-row">
+    <button *ngFor="let key of row1" 
+            (click)="sendKey(key)"
+            class="key-button">
+      {{ shiftActive ? key : key.toLowerCase() }}
+    </button>
+  </div>
+
+  <!-- Row 2: A S D F G H J K L -->
+  <div class="keyboard-row">
+    <button *ngFor="let key of row2" 
+            (click)="sendKey(key)"
+            class="key-button">
+      {{ shiftActive ? key : key.toLowerCase() }}
+    </button>
+  </div>
+
+  <!-- Row 3: Z X C V B N M -->
+  <div class="keyboard-row">
+    <button *ngFor="let key of row3" 
+            (click)="sendKey(key)"
+            class="key-button">
+      {{ shiftActive ? key : key.toLowerCase() }}
+    </button>
+  </div>
+
+  <!-- Reihe 4: special keys -->
+  <div class="keyboard-row">
+    <button (click)="toggleShift()" 
+            [class.active]="shiftActive"
+            class="key-button shift-key">
+      ⇧ Shift
+    </button>
+    
+    <button (click)="sendKey('Space')" 
+            class="key-button space-key">
+      Space
+    </button>
+    
+    <button (click)="sendKey('Backspace')" 
+            class="key-button">
+      ⌫ Delete
+    </button>
+    
+    <button (click)="sendKey('Enter')" 
+            class="key-button">
+      ↵ Enter
+    </button>
+  </div>
+</div>
 </main>

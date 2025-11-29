@@ -1,4 +1,5 @@
 use enigo::{Direction::Click, Enigo, Key, Keyboard, Settings};
+#[cfg(target_os = "linux")]
 use std::ptr;
 use tauri::Manager;
 
@@ -10,10 +11,34 @@ fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
+#[tauri::command]
+fn send_key(key: String) -> Result<(), String> {
+    let mut enigo = Enigo::new(&Settings::default()).map_err(|e| format!("Enigo error: {}", e))?;
+
+    if key.len() == 1 {
+        // Single letter (a-z, A-Z)
+        enigo.key(Key::Unicode(key.chars().next().unwrap()), Click)
+            .map_err(|e| format!("Key error: {}", e))?;
+    } else {
+        // Special keys
+        match key.as_str() {
+            "Enter" => enigo.key(Key::Return, Click)
+                .map_err(|e| format!("Key error: {}", e))?,
+            "Space" => enigo.key(Key::Space, Click)
+                .map_err(|e| format!("Key error: {}", e))?,
+            "Backspace" => enigo.key(Key::Backspace, Click)
+                .map_err(|e| format!("Key error: {}", e))?,
+            _ => return Err("Unknown key".to_string()),
+        }
+    }
+    Ok(())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
+            #[cfg_attr(not(target_os = "linux"), allow(unused_variables))]
             let window = app.get_webview_window("main").unwrap();
             #[cfg(target_os = "linux")]
             {
@@ -40,7 +65,7 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![greet, send_key])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

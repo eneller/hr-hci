@@ -110,3 +110,50 @@ button {
     background-color: #0f0f0f69;
   }
 }
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.key-button {
+  min-width: 60px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: rgb(58, 56, 56);
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.key-button:hover {
+  background: #979797;
+  border-color: #999;
+}
+
+.key-button:active {
+  background: #d0d0d0;
+  transform: scale(0.95);
+}
+
+.shift-key.active {
+  background: #4CAF50;
+  color: white;
+  border-color: #45a049;
+}
+
+.space-key {
+  min-width: 300px;
+}
