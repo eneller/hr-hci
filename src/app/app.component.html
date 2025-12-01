@@ -5,7 +5,7 @@
   </form>
   <p>{{ greetingMessage }}</p>
 <div class="keyboard">
-  <!-- Row 1: Q W E R T Y U I O P -->
+  <!-- Row 1-->
   <div class="keyboard-row">
     <button *ngFor="let key of row1" 
             (click)="sendKey(key)"
@@ -14,7 +14,7 @@
     </button>
   </div>
 
-  <!-- Row 2: A S D F G H J K L -->
+  <!-- Row 2-->
   <div class="keyboard-row">
     <button *ngFor="let key of row2" 
             (click)="sendKey(key)"
@@ -23,7 +23,7 @@
     </button>
   </div>
 
-  <!-- Row 3: Z X C V B N M -->
+  <!-- Row 3-->
   <div class="keyboard-row">
     <button *ngFor="let key of row3" 
             (click)="sendKey(key)"
@@ -53,6 +53,14 @@
     <button (click)="sendKey('Enter')" 
             class="key-button">
       ↵ Enter
+    </button>
+  </div>
+  
+  <!-- Row 5: Layout switcher -->
+  <div class="keyboard-row">
+    <button (click)="switchLayout()" 
+            class="key-button layout-switch">
+      {{ currentLayout === 'qwerty' ? 'Switch to DVORAK' : 'Switch to QWERTY' }}
     </button>
   </div>
 </div>
