@@ -77,21 +77,21 @@
 .middle-left {
   top: 50%;
   left: 50%;
-  transform: translate(-100%, -50%); /* Komplett links von der Mitte */
-  width: 30px;  /* Halbe Breite */
-  height: 55px; /* Volle Höhe */
-  border-radius: 35px 0 0 35px; /* Linke Hälfte eines Kreises */
-  z-index: 15; /* Über anderen Buttons */
+  transform: translate(-100%, -50%);
+  width: 30px;
+  height: 55px;
+  border-radius: 35px 0 0 35px;
+  z-index: 15;
 }
 
 .middle-right {
   top: 50%;
   left: 50%;
-  transform: translate(0%, -50%); /* Direkt rechts von der Mitte */
-  width: 30px;  /* Halbe Breite */
-  height: 55px; /* Volle Höhe */
-  border-radius: 0 35px 35px 0; /* Rechte Hälfte eines Kreises */
-  z-index: 15; /* Über anderen Buttons */
+  transform: translate(0%, -50%);
+  width: 30px;
+  height: 55px;
+  border-radius: 0 35px 35px 0;
+  z-index: 15;
 }
 
 /* 8 Circle Buttons */
