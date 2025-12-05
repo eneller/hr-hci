@@ -33,6 +33,16 @@ import { CommonModule } from '@angular/common';
                 class="center-section bottom-left">
           ⇧
         </button>
+        <button class="center-section middle-left"
+                (click)="keyPressed.emit('.')"
+                title="Period">
+                .
+        </button>
+        <button class="center-section middle-right"
+                (click)="keyPressed.emit(',')"
+                title="Comma">
+                ,
+        </button>
       </div>
 
       <!-- 8 Surrounding Buttons in Circle -->
@@ -43,130 +53,34 @@ import { CommonModule } from '@angular/common';
         {{ shiftActive ? key : key.toLowerCase() }}
       </button>
 
+      <button *ngFor="let key of circleKeysSecond; let i = index" 
+          class="circle-button second-ring"
+          [style.transform]="getCirclePositionFromTop(i, 150, 22.5)"
+          (click)="keyPressed.emit(key)">
+    {{ shiftActive ? key : key.toLowerCase() }}
+      </button>
+
      <button *ngFor="let key of circleKeysThird; let i = index" 
           class="circle-button third-ring"
           [style.transform]="getCirclePositionFromTop(i, 170)"
           (click)="keyPressed.emit(key)">
     {{ shiftActive ? key : key.toLowerCase() }}
       </button>
+
+      <button class="circle-button fourth-ring"
+          [style.transform]="getCirclePositionFromTop(0, 182, -12)"
+          (click)="keyPressed.emit(circleKeysFourth[0])">
+    {{ shiftActive ? circleKeysFourth[0] : circleKeysFourth[0].toLowerCase() }}
+      </button>
+
+      <button class="circle-button fourth-ring"
+          [style.transform]="getCirclePositionFromTop(0, 182, 14)"
+          (click)="keyPressed.emit(circleKeysFourth[1])">
+    {{ shiftActive ? circleKeysFourth[1] : circleKeysFourth[1].toLowerCase() }}
+      </button>
     </div>
   `,
-  styles: [`
-    .circle-keyboard-container {
-      position: relative;
-      width: 400px;
-      height: 400px;
-      margin: 50px auto;
-    }
-
-    /* Center Button Container */
-    .center-button-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 140px;
-      height: 140px;
-      z-index: 1;
-    }
-
-    /* Center Button Sections */
-    .center-section {
-      position: absolute;
-      background: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
-      border: 2px solid #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    /* Top-left: Backspace (triangle) */
-    .top-left{
-      top: 0;
-      left: 0;
-      width: 70px;
-      height: 70px;
-      border-radius: 70px 0 0 0;
-    }
-
-    /* Top-right: Enter*/
-    .top-right {
-      top: 0;
-      right: 0;
-      width: 70px;
-      height: 70px;
-      border-radius: 0 70px 0 0;
-    }
-
-    /* Bottom: Space */
-    .bottom-left {
-      bottom: 0;
-      left: 0;
-      width: 70px;
-      height: 70px;
-      border-radius: 0 0 0 70px;
-    }
-
-    .bottom-left.active {
-      background: #4CAF50 !important;
-      color: white;
-      border-color: #45a049;
-    }
-
-    .bottom-right {
-        bottom: 0;
-        right: 0;
-        width: 70px;
-        height: 70px;
-        border-radius: 0 0 70px 0;
-    }
-
-    /* 8 Circle Buttons */
-    .circle-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 60px;
-      height: 60px;
-      margin: -30px 0 0 -30px;
-      border-radius: 50%;
-      border: 2px solid #ddd;
-      background: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      z-index: 1;
-    }
-
-    .third-ring {
-        width: 40px;
-        height: 40px;
-        margin: -20px 0 0 -20px;
-    }
-
-    .fourth-ring {
-        width: 30px;
-        height: 30px;
-        margin: -20px 0 0 -20px;
-    }
-
-    .circle-button:hover, .center-section:hover {
-      background: #e8e8e8;
-      border-color: #999;
-    }
-
-    .circle-button:active, .center-section:active {
-      background: #d0d0d0;
-    }
-  `]
+  styleUrl: './circle-keyboard.component.css'
 })
 export class CircleKeyboardComponent {
   @Input() shiftActive = false;
@@ -177,11 +91,11 @@ export class CircleKeyboardComponent {
   circleKeysFirst = ['E', 'T', 'A', 'O', 'N', 'I', 'H', 'S'];
   circleKeysSecond = ['R', 'L', 'D', 'U', 'C', 'M', 'W', 'Y'];
   circleKeysThird = ['F', 'G', 'P', 'B', 'V', 'K', 'J', 'X'];
-  circleKeysFourth = ['Q', 'Z', ',', '.'];
+  circleKeysFourth = ['Q', 'Z'];
 
   // Calculate position for each button in circle
-  getCirclePositionFromTop(index: number, radius: number): string {
-    const angle = (index * 45) - 90; // Start from top (0°), 45° apart
+  getCirclePositionFromTop(index: number, radius: number, offset: number = 0): string {
+    const angle = ((index * 45) - 90) + offset; // Start from top (0°), 45° apart
     const angleRad = (angle * Math.PI) / 180;
     const x = Math.cos(angleRad) * radius;
     const y = Math.sin(angleRad) * radius;
