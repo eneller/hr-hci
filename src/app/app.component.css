@@ -103,6 +103,11 @@ button {
   button:active {
     background-color: #0f0f0f69;
   }
+  
+  .key-button {
+    background: rgb(58, 56, 56);
+    color: white;
+  }
 }
 
 .keyboard {
@@ -128,13 +133,12 @@ button {
   font-weight: bold;
   border: 2px solid #ddd;
   border-radius: 8px;
-  background: rgb(58, 56, 56);
   cursor: pointer;
   transition: all 0.1s;
 }
 
 .key-button:hover {
-  background: #979797;
+  background: #b1b1b1;
   border-color: #3d3d3d;
 }
 
