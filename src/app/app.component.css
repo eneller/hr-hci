@@ -1,6 +1,4 @@
-.logo.angular:hover {
-  filter: drop-shadow(0 0 2em #e32727);
-}
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -31,10 +29,6 @@
   padding: 1.5em;
   will-change: filter;
   transition: 0.75s;
-}
-
-.logo.tauri:hover {
-  filter: drop-shadow(0 0 2em #24c8db);
 }
 
 .row {
@@ -109,4 +103,56 @@ button {
   button:active {
     background-color: #0f0f0f69;
   }
+  
+  .key-button {
+    background: rgb(58, 56, 56);
+    color: white;
+  }
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  margin: 20px auto;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.key-button {
+  min-width: 60px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.key-button:hover {
+  background: #b1b1b1;
+  border-color: #3d3d3d;
+}
+
+.key-button:active {
+  background: #d0d0d0;
+  transform: scale(0.95);
+}
+
+.shift-key.active {
+  background: #4CAF50;
+  color: white;
+  border-color: #45a049;
+}
+
+.space-key {
+  min-width: 300px;
 }
