@@ -1,6 +1,11 @@
 # Tauri + Angular
 
-This template should help get you started developing with Tauri and Angular.
+On Windows, Tauri requires the the msvc toolchain:
+```
+rustup default stable-msvc
+```
+
+
 
 ## Recommended IDE Setup
 
