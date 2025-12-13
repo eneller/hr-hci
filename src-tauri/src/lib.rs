@@ -3,14 +3,6 @@ use enigo::{Direction, Enigo, Key, Keyboard, Settings};
 use std::ptr;
 use tauri::Manager;
 
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-#[tauri::command]
-fn greet(name: &str) -> String {
-    // let mut enigo = Enigo::new(&Settings::default()).unwrap();
-    // enigo.key(Key::Unicode('a'), Click);
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
 #[tauri::command]
 fn send_key(key: String) -> Result<(), String> {
     let mut enigo = Enigo::new(&Settings::default()).map_err(|e| format!("Enigo error: {}", e))?;
@@ -78,7 +70,7 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet, send_key])
+        .invoke_handler(tauri::generate_handler![send_key])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
