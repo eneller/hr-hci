@@ -6,7 +6,7 @@
     </button>
   </div>
 
-  <!-- Conditional Rendering basierend auf currentLayout -->
+  <!-- Conditional Rendering based on currentLayout -->
   <app-qwerty-keyboard 
     *ngIf="currentLayout === 'qwerty'"
     [shiftActive]="shiftActive"
@@ -27,4 +27,11 @@
     (keyPressed)="handleKeyPress($event)"
     (shiftToggled)="toggleShift()">
   </app-circle-keyboard>
+
+  <app-opti-keyboard 
+    *ngIf="currentLayout === 'opti'"
+    [shiftActive]="shiftActive"
+    (keyPressed)="handleKeyPress($event)"
+    (shiftToggled)="toggleShift()">
+  </app-opti-keyboard>
 </main>

@@ -40,7 +40,7 @@ import { CommonModule } from '@angular/common';
         
         <button (click)="keyPressed.emit('Space')" 
                 class="key-button space-key">
-          Leertaste
+          Space
         </button>
         
         <button (click)="keyPressed.emit('Backspace')" 

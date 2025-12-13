@@ -5,6 +5,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { QwertyKeyboardComponent } from './keyboards/qwerty-keyboard.component';
 import { DvorakKeyboardComponent } from './keyboards/dvorak-keyboard.component';
 import { CircleKeyboardComponent } from './keyboards/circle-keyboard.component';
+import { OptiKeyboardComponent } from './keyboards/opti-keyboard.component';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +15,15 @@ import { CircleKeyboardComponent } from './keyboards/circle-keyboard.component';
     RouterOutlet,
     QwertyKeyboardComponent,
     DvorakKeyboardComponent,
-    CircleKeyboardComponent
+    CircleKeyboardComponent,
+    OptiKeyboardComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements AfterViewInit {
   greetingMessage = "";
-  currentLayout: 'qwerty' | 'dvorak' | 'circle' = 'qwerty';
+  currentLayout: 'qwerty' | 'dvorak' | 'circle' | 'opti' = 'qwerty';
   shiftActive = false;
 
   @ViewChild('greetInput') inputElement!: ElementRef;
@@ -47,6 +49,8 @@ export class AppComponent implements AfterViewInit {
     } else if (this.currentLayout == 'dvorak'){
       this.currentLayout = 'circle';
     } else if (this.currentLayout == 'circle'){
+      this.currentLayout = 'opti';
+    } else if (this.currentLayout == 'opti'){
       this.currentLayout = 'qwerty';
     }
   }
