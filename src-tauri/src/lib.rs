@@ -53,6 +53,9 @@ pub fn run() {
         .setup(|app| {
             #[cfg_attr(not(target_os = "linux"), allow(unused_variables))]
             let window = app.get_webview_window("main").unwrap();
+            #[cfg(target_os = "windows")]
+            {
+            }
             #[cfg(target_os = "linux")]
             {
                 use x11::xlib;
