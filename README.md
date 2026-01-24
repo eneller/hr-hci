@@ -15,6 +15,6 @@ Keyboard emulation on most systems requires workarounds for two issues:
 - not receiving focus when clicked
 - sending input
 
-## Logging Setup
-either use [TextTestExe](https://depts.washington.edu/acelab/proj/texttest/) (local program) or [TextTestPP](https://drustz.com/TextTestPP/) (online).
-
+## Logging and Statistics
+For logging, either use [TextTestExe](https://depts.washington.edu/acelab/proj/texttest/) (local program) or [TextTestPP](https://drustz.com/TextTestPP/) (online).
+The theoretical framework is inspired by https://www.yorku.ca/mack/bit95.html
