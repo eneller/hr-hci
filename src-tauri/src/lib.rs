@@ -6,8 +6,6 @@ use tauri::Manager;
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
 fn greet(name: &str) -> String {
-    // let mut enigo = Enigo::new(&Settings::default()).unwrap();
-    // enigo.key(Key::Unicode('a'), Click);
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
@@ -51,16 +49,42 @@ fn send_key(key: String) -> Result<(), String> {
 pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
-            #[cfg_attr(not(target_os = "linux"), allow(unused_variables))]
             let window = app.get_webview_window("main").unwrap();
+            
             #[cfg(target_os = "windows")]
             {
+                use windows::Win32::UI::WindowsAndMessaging::{SetWindowPos, HWND_TOPMOST, SWP_NOACTIVATE, GetWindowLongPtrW, SetWindowLongPtrW, GWL_EXSTYLE, WS_EX_NOACTIVATE};
+                use windows::Win32::Foundation::HWND;
+                use raw_window_handle::{HasRawWindowHandle, RawWindowHandle};
+                
+                unsafe {
+                    if let Ok(RawWindowHandle::Win32(handle)) = window.raw_window_handle() {
+                        let hwnd = HWND(handle.hwnd.get() as *mut core::ffi::c_void);
+                        
+                        // Get current extended window style
+                        let ex_style = GetWindowLongPtrW(hwnd, GWL_EXSTYLE) as u32;
+                        
+                        // Add WS_EX_NOACTIVATE flag
+                        let new_style = ex_style | WS_EX_NOACTIVATE.0;
+                        SetWindowLongPtrW(hwnd, GWL_EXSTYLE, new_style as isize);
+                        
+                        // Position window as topmost without activating
+                        /*
+                        SetWindowPos(
+                            hwnd,
+                            Some(HWND_TOPMOST),
+                            0, 0, 0, 0,
+                            SWP_NOACTIVATE
+                        ); */
+                    }
+                }
             }
+            
             #[cfg(target_os = "linux")]
             {
                 use x11::xlib;
-                use raw_window_handle::{HasRawWindowHandle, RawWindowHandle, WindowHandle};
-                // raw X11 pointers here
+                use raw_window_handle::{HasRawWindowHandle, RawWindowHandle};
+                
                 unsafe {
                     let handle = window.raw_window_handle();
                     if let Ok(RawWindowHandle::Xlib(h)) = handle {
@@ -69,7 +93,7 @@ pub fn run() {
                             let hints = xlib::XAllocWMHints();
                             if !hints.is_null() {
                                 (*hints).flags = xlib::InputHint;
-                                (*hints).input = 0; // Set input hint to False
+                                (*hints).input = 0;
                                 xlib::XSetWMHints(display, h.window, hints);
                                 xlib::XFree(hints as *mut _);
                             }
@@ -78,6 +102,7 @@ pub fn run() {
                     }
                 }
             }
+            
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
