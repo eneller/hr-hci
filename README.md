@@ -14,7 +14,7 @@ Keyboard emulation on most systems requires workarounds for two issues:
 - keeping the window with the keyboard on top while another (the input target) is in focus
 - not receiving focus when clicked
 - sending input
-### Windows
-To keep the window on top: [PowerToys Always on top](https://learn.microsoft.com/en-us/windows/powertoys/always-on-top).
-To [send input](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput), inspired by [dpurgin/osk](https://github.com/dpurgin/osk).
+
+## Logging Setup
+either use [TextTestExe](https://depts.washington.edu/acelab/proj/texttest/) (local program) or [TextTestPP](https://drustz.com/TextTestPP/) (online).
 
