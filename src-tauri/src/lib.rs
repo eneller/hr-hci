@@ -1,7 +1,7 @@
 use enigo::{Direction, Enigo, Key, Keyboard, Settings};
+use tauri::Manager;
 #[cfg(target_os = "linux")]
 use std::ptr;
-use tauri::Manager;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]

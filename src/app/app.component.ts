@@ -19,23 +19,12 @@ import { CircleKeyboardComponent } from './keyboards/circle-keyboard.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   greetingMessage = "";
   currentLayout: 'qwerty' | 'dvorak' | 'circle' = 'qwerty';
   shiftActive = false;
 
   @ViewChild('greetInput') inputElement!: ElementRef;
-
-  ngAfterViewInit() {
-    this.inputElement.nativeElement.focus();
-  }
-
-  greet(event: SubmitEvent, name: string): void {
-    event.preventDefault();
-    invoke<string>("greet", { name }).then((text) => {
-      this.greetingMessage = text;
-    });
-  }
 
   toggleShift(): void {
     this.shiftActive = !this.shiftActive;
@@ -52,7 +41,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   async handleKeyPress(key: string): Promise<void> {
-    this.inputElement.nativeElement.focus();
     
     let finalKey = key;
     if (key.length === 1) {
