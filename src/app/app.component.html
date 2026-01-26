@@ -2,27 +2,27 @@
   <!-- Layout Switcher -->
   <div class="layout-controls">
     <button (click)="switchLayout()" class="layout-button">
-      Switch Layout: {{ currentLayout.toUpperCase() }}
+      Switch Layout: {{ currentLayout.toString() }}
     </button>
   </div>
 
   <!-- Conditional Rendering basierend auf currentLayout -->
   <app-qwerty-keyboard 
-    *ngIf="currentLayout === 'qwerty'"
+    *ngIf="currentLayout === Keyboards.QWERTY"
     [shiftActive]="shiftActive"
     (keyPressed)="handleKeyPress($event)"
     (shiftToggled)="toggleShift()">
   </app-qwerty-keyboard>
 
   <app-dvorak-keyboard 
-    *ngIf="currentLayout === 'dvorak'"
+    *ngIf="currentLayout === Keyboards.DVORAK"
     [shiftActive]="shiftActive"
     (keyPressed)="handleKeyPress($event)"
     (shiftToggled)="toggleShift()">
   </app-dvorak-keyboard>
 
   <app-circle-keyboard 
-    *ngIf="currentLayout === 'circle'"
+    *ngIf="currentLayout === Keyboards.CIRCLE"
     [shiftActive]="shiftActive"
     (keyPressed)="handleKeyPress($event)"
     (shiftToggled)="toggleShift()">

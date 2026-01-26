@@ -64,12 +64,10 @@ pub fn run() {
 
             #[cfg(target_os = "windows")]
             {
+                #![allow(deprecated)]
                 use raw_window_handle::{HasRawWindowHandle, RawWindowHandle};
                 use windows::Win32::Foundation::HWND;
-                use windows::Win32::UI::WindowsAndMessaging::{
-                    GetWindowLongPtrW, SetWindowLongPtrW, SetWindowPos, GWL_EXSTYLE, HWND_TOPMOST,
-                    SWP_NOACTIVATE, WS_EX_NOACTIVATE,
-                };
+                use windows::Win32::UI::WindowsAndMessaging::{GetWindowLongPtrW, SetWindowLongPtrW, GWL_EXSTYLE, WS_EX_NOACTIVATE,};
 
                 unsafe {
                     if let Ok(RawWindowHandle::Win32(handle)) = window.raw_window_handle() {

@@ -21,13 +21,13 @@ import { CircleKeyboardComponent } from './keyboards/circle-keyboard.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  async ngOnInit() {
-    const matches = await getMatches();
-    console.log(matches);
-  }
-  greetingMessage = "";
-  currentLayout: 'qwerty' | 'dvorak' | 'circle' = 'qwerty';
+  Keyboards = Keyboards;
+  currentLayout: Keyboards = Keyboards.QWERTY;
   shiftActive = false;
+  async ngOnInit() {
+
+    const cli = await getMatches();
+  }
 
   @ViewChild('greetInput') inputElement!: ElementRef;
 
@@ -36,12 +36,12 @@ export class AppComponent implements OnInit {
   }
   
   switchLayout(): void {
-    if (this.currentLayout == 'qwerty'){
-      this.currentLayout = 'dvorak';
-    } else if (this.currentLayout == 'dvorak'){
-      this.currentLayout = 'circle';
-    } else if (this.currentLayout == 'circle'){
-      this.currentLayout = 'qwerty';
+    if (this.currentLayout === Keyboards.QWERTY){
+      this.currentLayout = Keyboards.DVORAK;
+    } else if (this.currentLayout === Keyboards.DVORAK){
+      this.currentLayout = Keyboards.CIRCLE;
+    } else if (this.currentLayout === Keyboards.CIRCLE){
+      this.currentLayout = Keyboards.QWERTY;
     }
   }
 
@@ -58,4 +58,9 @@ export class AppComponent implements OnInit {
       this.shiftActive = false;
     }
   }
+}
+enum Keyboards{
+  QWERTY,
+  DVORAK,
+  CIRCLE
 }
