@@ -26,6 +26,29 @@
       "csp": null
     }
   },
+  "plugins": {
+    "cli":{
+      "description": "On-Screen keyboard for Human-Computer Interface studies",
+      "args": [
+        {
+          "name": "order",
+          "short": "o",
+          "takesValue": true,
+          "multiple": true
+        },
+        {
+          "name": "limit",
+          "short": "l",
+          "takesValue": true
+        },
+        {
+          "name": "demo",
+          "short": "d",
+          "takesValue": true
+        }
+      ]
+    }
+  },
   "bundle": {
     "active": true,
     "targets": "all",
