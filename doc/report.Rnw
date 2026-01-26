@@ -1,0 +1,34 @@
+\documentclass{article}
+
+\begin{document}
+\section{Abstract}\label{abstract}
+
+\section{Introduction}\label{introduction}
+
+\section{Keyboard Designs}\label{keyboard-designs}
+
+\section{Experiment}\label{experiment}
+
+\subsection{Participants}\label{participants}
+
+\subsection{Apparatus}\label{apparatus}
+
+\subsection{Procedure}\label{procedure}
+
+\section{Results}\label{results}
+
+\subsection{Descriptive Statistics}\label{descriptive-statistics}
+
+\subsubsection{Objective Measures}\label{objective-measures}
+
+\subsubsection{Subjective Measures}\label{subjective-measures}
+
+\subsection{Inferential Statistics}\label{inferential-statistics}
+
+\subsubsection{Objective Measures}\label{objective-measures-1}
+
+\subsubsection{Subjective Measures}\label{subjective-measures-1}
+
+\section{Discussion}\label{discussion}
+
+\end{document}
