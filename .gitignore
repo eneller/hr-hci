@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 TextTestExe/
-data/
+data/raw

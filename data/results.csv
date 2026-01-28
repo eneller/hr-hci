@@ -1,0 +1,3 @@
+id,age,sequence,wpm_querty,ter_qwerty,wpm_dvorak,ter_dvorak,wpm_circle,ter_circle
+en, 24, qwerty-dvorak-circle,
+la, 25, qwerty-circle-dvorak,
