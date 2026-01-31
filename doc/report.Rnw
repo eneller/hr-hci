@@ -19,6 +19,30 @@
 
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
 
+<<>>=
+results <- read.csv("../data/results.csv", sep=",", header=TRUE)
+summary(results[, c("qwerty_ter", "dvorak_ter", "circle_ter")])
+summary(results[, c("qwerty_wpm", "dvorak_wpm", "circle_wpm")])
+@
+
+<<>>=
+boxplot(results$qwerty_ter,
+        results$dvorak_ter,
+        results$circle_ter,
+        names = c("QWERTY", "DVORAK", "CIRCLE"),
+        ylab = "Total Error Rate (TER)",
+        main = "Layout of onscreen keyboard")
+@
+
+<<>>=
+boxplot(results$qwerty_wpm,
+        results$dvorak_wpm,
+        results$circle_wpm,
+        names = c("QWERTY", "DVORAK", "CIRCLE"),
+        ylab = "Words per minute (WPM)",
+        main = "Layout of onscreen keyboard")
+@
+
 \subsubsection{Objective Measures}\label{objective-measures}
 
 \subsubsection{Subjective Measures}\label{subjective-measures}
