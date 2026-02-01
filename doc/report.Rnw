@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[conference,a4paper]{IEEEtran}
 
 \begin{document}
 \section{Abstract}\label{abstract}
@@ -20,9 +20,12 @@
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
 
 <<echo=FALSE>>=
+library(knitr)
 results <- read.csv("../data/results.csv", sep=",", header=TRUE)
-summary(results[, c("qwerty_ter", "dvorak_ter", "circle_ter")])
-summary(results[, c("qwerty_wpm", "dvorak_wpm", "circle_wpm")])
+ter <- summary(results[, c("qwerty_ter", "dvorak_ter", "circle_ter")])
+wpm <- summary(results[, c("qwerty_wpm", "dvorak_wpm", "circle_wpm")])
+kable(ter, format = "latex")
+kable(wpm, format = "latex")
 @
 
 <<echo=FALSE>>=
