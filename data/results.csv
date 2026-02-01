@@ -1,3 +1,10 @@
 id,age,sequence,qwerty_wpm, qwerty_ter, dvorak_wpm, dvorak_ter, circle_wpm, circle_ter
 en, 24, qwerty-dvorak-circle, 21.6, 0.067, 9.0, 0.023, 8.5, 0.017
 la, 25, qwerty-circle-dvorak, 18.5, 0.007, 8.8, 0.017, 9.8, 0.022
+as, 22, dvorak-qwerty-circle, 21.1, 0.049, 10.0, 0.006, 9.0, 0.033
+hb, 24, dvorak-circle-qwerty, 19.0, 0.019, 6.2, 0.018, 5.8, 0.004
+gs, 21, circle-qwerty-dvorak, 18.2, 0.034, 10.0, 0.038, 11.3, 0.00
+ab, 21, circle-dvorak-qwerty, 12.1, 0.034, 5.4, 0.029, 5.8, 0.105
+mz, 24, qwerty-dvorak-circle, 15.8, 0.063, 9.8, 0.043, 10.3, 0.065
+oa, 21, qwerty-circle-dvorak, 17.5, 0.011, 9.5, 0.011, 11.6, 0.010
+dc, 22, dvorak-qwerty-circle, 15.2, 0.033, 7.0, 0.097, 5.1, 0.009
