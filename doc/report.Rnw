@@ -1,6 +1,10 @@
 \documentclass[conference,a4paper]{IEEEtran}
 
+\usepackage{graphicx}   % for including figures
+\usepackage{booktabs}   % for nicer tables
+
 \begin{document}
+
 \section{Abstract}\label{abstract}
 
 \section{Introduction}\label{introduction}
@@ -19,36 +23,144 @@
 
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
 
-<<echo=FALSE>>=
-library(knitr)
-results <- read.csv("../data/results.csv", sep=",", header=TRUE)
-ter <- summary(results[, c("qwerty_ter", "dvorak_ter", "circle_ter")])
-wpm <- summary(results[, c("qwerty_wpm", "dvorak_wpm", "circle_wpm")])
-kable(ter, format = "latex")
-kable(wpm, format = "latex")
-@
-
-<<echo=FALSE>>=
-boxplot(results$qwerty_ter,
-        results$dvorak_ter,
-        results$circle_ter,
-        names = c("QWERTY", "DVORAK", "CIRCLE"),
-        ylab = "Total Error Rate (TER)",
-        main = "Layout of onscreen keyboard")
-@
-
-<<echo=FALSE>>=
-boxplot(results$qwerty_wpm,
-        results$dvorak_wpm,
-        results$circle_wpm,
-        names = c("QWERTY", "DVORAK", "CIRCLE"),
-        ylab = "Words per minute (WPM)",
-        main = "Layout of onscreen keyboard")
-@
-
 \subsubsection{Objective Measures}\label{objective-measures}
 
+<<echo=FALSE>>=
+library(knitr)
+
+# Read the results CSV
+results <- read.csv("../data/results.csv", sep=",", header=TRUE)
+
+# Summarize TER and WPM
+ter <- summary(results[, c("qwerty_ter", "dvorak_ter", "circle_ter")])
+wpm <- summary(results[, c("qwerty_wpm", "dvorak_wpm", "circle_wpm")])
+@
+
+% TER table
+\begin{table}[h]
+\centering
+\scriptsize
+<<results='asis', echo=FALSE>>=
+kable(ter, format="latex", booktabs=TRUE)
+@
+\caption{Summary of Total Error Rate (TER)}
+\end{table}
+
+% WPM table
+\begin{table}[h]
+\centering
+\scriptsize
+<<results='asis', echo=FALSE>>=
+kable(wpm, format="latex", booktabs=TRUE)
+@
+\caption{Summary of Words per Minute (WPM)}
+\end{table}
+
+<<echo=FALSE>>=
+# Create figures directory if it doesn't exist
+dir.create("../figures", showWarnings=FALSE)
+
+# Helper functions for standard deviation and confidence intervals
+mean_sd <- function(x) { 
+  m <- mean(x) 
+  s <- sd(x) 
+  c(mean=m, lower=m-s, upper=m+s) 
+}
+
+mean_ci <- function(x) {
+  m <- mean(x)
+  se <- sd(x)/sqrt(length(x))
+  ci <- qt(0.975, df=length(x)-1)*se
+  c(mean=m, lower=m-ci, upper=m+ci)
+}
+
+# TER stats
+ter_stats <- rbind(
+  mean_ci(results$qwerty_ter),
+  mean_ci(results$dvorak_ter),
+  mean_ci(results$circle_ter)
+)
+
+# Save TER barplot as PDF using LaTeX-compatible fonts
+pdf("../figures/ter_plot.pdf")
+bar_pos <- barplot(
+  ter_stats[,"mean"],
+  names.arg=c("QWERTY","DVORAK","CIRCLE"),
+  ylab="Total Error Rate (TER)",
+  main="TER of layouts",
+  ylim=c(0, max(ter_stats[,"upper"])*1.1)
+)
+# Add confidence intervals
+arrows(
+  x0=bar_pos, y0=ter_stats[,"lower"],
+  x1=bar_pos, y1=ter_stats[,"upper"],
+  angle=90, code=3, length=0.05
+)
+dev.off()
+
+# WPM stats
+wpm_stats <- rbind(
+  mean_sd(results$qwerty_wpm),
+  mean_sd(results$dvorak_wpm),
+  mean_sd(results$circle_wpm)
+)
+
+# Save WPM barplot as PDF using LaTeX-compatible fonts
+pdf("../figures/wpm_plot.pdf")
+bar_pos <- barplot(
+  wpm_stats[,"mean"],
+  names.arg=c("QWERTY","DVORAK","CIRCLE"),
+  ylab="Words per minute (WPM)",
+  main="WPM of layouts",
+  ylim=c(0, max(wpm_stats[,"upper"])*1.1)
+)
+arrows(
+  x0=bar_pos, y0=wpm_stats[,"lower"],
+  x1=bar_pos, y1=wpm_stats[,"upper"],
+  angle=90, code=3, length=0.05
+)
+dev.off()
+@
+
+% Include TER plot
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{../figures/ter_plot.pdf}
+\caption{Total Error Rate (TER) by Keyboard Layout}
+\end{figure}
+
+% Include WPM plot
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{../figures/wpm_plot.pdf}
+\caption{Words per Minute (WPM) by Keyboard Layout}
+\end{figure}
+
 \subsubsection{Subjective Measures}\label{subjective-measures}
+
+<<echo=FALSE>>=
+# Read NASA-TLX data
+nasa <- read.csv("../data/nasaTLX.csv")
+nasa$layout <- factor(nasa$layout)
+
+# Save boxplots as PDF using LaTeX-compatible fonts
+pdf("../figures/nasa_boxplots.pdf")
+par(mfrow=c(2,3))  # Arrange plots in 2 rows x 3 columns
+boxplot(mental_demand ~ layout, data=nasa, main="Mental Demand")
+boxplot(physical_demand ~ layout, data=nasa, main="Physical Demand")
+boxplot(performance ~ layout, data=nasa, main="Performance")
+boxplot(effort ~ layout, data=nasa, main="Effort")
+boxplot(frustration ~ layout, data=nasa, main="Frustration")
+par(mfrow=c(1,1))
+dev.off()
+@
+
+% Include NASA-TLX boxplots
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{../figures/nasa_boxplots.pdf}
+\caption{NASA-TLX Scores by Keyboard Layout}
+\end{figure}
 
 \subsection{Inferential Statistics}\label{inferential-statistics}
 
