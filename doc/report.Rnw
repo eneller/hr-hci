@@ -6,10 +6,44 @@
 \begin{document}
 
 \section{Abstract}\label{abstract}
+We evaluated three on-screen keyboard layouts: QWERTY, Dvorak, and Circle. Objective performance, measured in words per minute (WPM), showed a significant main effect of layout. Post-hoc comparisons revealed that QWERTY was significantly faster than both Dvorak and Circle, while no difference was observed between Dvorak and Circle. Total error rate (TER) did not differ significantly between layouts. Subjective workload ratings assessed via NASA-TLX were similar for Dvorak and Circle, but QWERTY was perceived as less demanding. These results indicate that QWERTY offers superior typing speed, whereas error rates and perceived workload are comparable across layouts.
 
 \section{Introduction}\label{introduction}
 
 \section{Keyboard Designs}\label{keyboard-designs}
+Three on-screen keyboard layouts were evaluated in this study: QWERTY, Dvorak, and a custom-designed Circle layout.
+
+1. QWERTY: The standard layout commonly used in English typing, serving as a baseline for comparison.
+
+2. Dvorak: An alternative layout designed to increase typing efficiency by placing frequently used letters in more accessible positions.
+
+3. Circle Layout: A custom layout developed for this study, in which keys were arranged in a circular pattern. Letters that occur more frequently in English were positioned closer to the center and rendered larger to facilitate faster access. Less frequently used letters were placed toward the periphery and sized smaller, aiming to optimize ergonomic reach and visual salience.
+
+This design allowed us to investigate both established and novel layouts, comparing objective typing performance, error rates, and subjective workload.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/qwerty-pic.png}
+    \caption{QWERTY Keyboard Layout}
+    \label{fig:qwerty}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/dvorak-pic.png}
+    \caption{Dvorak Keyboard Layout}
+    \label{fig:dvorak}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/circle-pic.png}
+    \caption{Circle Keyboard Layout}
+    \label{fig:circle}
+\end{figure}
+
 
 \section{Experiment}\label{experiment}
 
