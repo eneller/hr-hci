@@ -163,6 +163,80 @@ dev.off()
 \end{figure}
 
 \subsection{Inferential Statistics}\label{inferential-statistics}
+Independent var: 
+- QWERTY
+- DVORAK
+- Circle
+
+Dependent var:
+- WPM
+- TER
+- Nasa-TLX
+
+%Anova RM for WPM
+<<echo=FALSE>>=
+library(tidyr)
+library(dplyr)
+
+# Add participant ID
+results$id <- 1:nrow(results)
+
+# --- WPM Long Format ---
+wpm_long <- results %>%
+  select(id, qwerty_wpm, dvorak_wpm, circle_wpm) %>%
+  pivot_longer(
+    cols = -id,
+    names_to = "layout",
+    values_to = "wpm"
+  )
+
+wpm_long$id <- factor(wpm_long$id)
+
+wpm_long$layout <- factor(wpm_long$layout,
+                         levels=c("qwerty_wpm","dvorak_wpm","circle_wpm"),
+                         labels=c("QWERTY","DVORAK","CIRCLE"))
+
+# --- RM ANOVA for WPM ---
+anova_wpm <- aov(wpm ~ layout + Error(id/layout), data=wpm_long)
+
+# Print ANOVA table
+summary(anova_wpm)
+@
+
+%Anova RM for TER
+<<echo=FALSE>>=
+
+# --- TER Long Format ---
+ter_long <- results %>%
+  select(id, qwerty_ter, dvorak_ter, circle_ter) %>%
+  pivot_longer(
+    cols = -id,
+    names_to = "layout",
+    values_to = "ter"
+  )
+
+ter_long$id <- factor(ter_long$id)
+
+ter_long$layout <- factor(ter_long$layout,
+                         levels=c("qwerty_ter","dvorak_ter","circle_ter"),
+                         labels=c("QWERTY","DVORAK","CIRCLE"))
+
+# --- RM ANOVA for TER ---
+anova_ter <- aov(ter ~ layout + Error(id/layout), data=ter_long)
+
+summary(anova_ter)
+@
+
+% Post-Hoc analysis with bonferroni correction for WPM
+<<echo=FALSE>>=
+suppressMessages(library(emmeans))
+
+suppressMessages(emm_wpm <- emmeans(anova_wpm, ~ layout))
+
+posthoc <- pairs(emm_wpm, adjust = "bonferroni")
+
+print(posthoc)
+@
 
 \subsubsection{Objective Measures}\label{objective-measures-1}
 

@@ -8,3 +8,5 @@ ab, 21, circle-dvorak-qwerty, 12.1, 0.034, 5.4, 0.029, 5.8, 0.105
 mz, 24, qwerty-dvorak-circle, 15.8, 0.063, 9.8, 0.043, 10.3, 0.065
 oa, 21, qwerty-circle-dvorak, 17.5, 0.011, 9.5, 0.011, 11.6, 0.010
 dc, 22, dvorak-qwerty-circle, 15.2, 0.033, 7.0, 0.097, 5.1, 0.009
+pt, 23, dvorak-circle-qwerty, 16.3, 0.027, 6.5, 0.012, 6.2, 0.005
+rn, 24, circle-qwerty-dvorak, 14.8, 0.052, 8.8, 0.034, 9.5, 0.022
