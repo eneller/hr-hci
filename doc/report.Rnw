@@ -63,14 +63,84 @@ This design allowed us to investigate both established and novel layouts, compar
 
 <<echo=FALSE, message=FALSE>>=
 library(knitr)
+library(dplyr)
+library(tidyr)
 
 # Read the results CSV
 results <- read.csv("../data/results.csv", sep=",", header=TRUE)
 
-# Summarize TER and WPM
-ter <- summary(results[, c("qwerty_ter", "dvorak_ter", "circle_ter")])
-wpm <- summary(results[, c("qwerty_wpm", "dvorak_wpm", "circle_wpm")])
+ter_stats <- results %>%
+  summarise(
+    qwerty_min = min(qwerty_ter, na.rm = TRUE),
+    qwerty_q1 = quantile(qwerty_ter, 0.25, na.rm = TRUE),
+    qwerty_median = median(qwerty_ter, na.rm = TRUE),
+    qwerty_mean = mean(qwerty_ter, na.rm = TRUE),
+    qwerty_q3 = quantile(qwerty_ter, 0.75, na.rm = TRUE),
+    qwerty_max = max(qwerty_ter, na.rm = TRUE),
+
+    dvorak_min = min(dvorak_ter, na.rm = TRUE),
+    dvorak_q1 = quantile(dvorak_ter, 0.25, na.rm = TRUE),
+    dvorak_median = median(dvorak_ter, na.rm = TRUE),
+    dvorak_mean = mean(dvorak_ter, na.rm = TRUE),
+    dvorak_q3 = quantile(dvorak_ter, 0.75, na.rm = TRUE),
+    dvorak_max = max(dvorak_ter, na.rm = TRUE),
+
+    circle_min = min(circle_ter, na.rm = TRUE),
+    circle_q1 = quantile(circle_ter, 0.25, na.rm = TRUE),
+    circle_median = median(circle_ter, na.rm = TRUE),
+    circle_mean = mean(circle_ter, na.rm = TRUE),
+    circle_q3 = quantile(circle_ter, 0.75, na.rm = TRUE),
+    circle_max = max(circle_ter, na.rm = TRUE)
+  )
+ter_tidy <- ter_stats %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("layout", ".value"),
+    names_sep = "_"
+  )
+ter_tidy <- ter_tidy %>%
+  select(layout, min, q1, median, mean, q3, max)
+
+# Read the results CSV
+results <- read.csv("../data/results.csv", sep=",", header=TRUE)
+
+wpm_stats <- results %>%
+  summarise(
+    qwerty_min = min(qwerty_wpm, na.rm = TRUE),
+    qwerty_q1 = quantile(qwerty_wpm, 0.25, na.rm = TRUE),
+    qwerty_median = median(qwerty_wpm, na.rm = TRUE),
+    qwerty_mean = mean(qwerty_wpm, na.rm = TRUE),
+    qwerty_q3 = quantile(qwerty_wpm, 0.75, na.rm = TRUE),
+    qwerty_max = max(qwerty_wpm, na.rm = TRUE),
+
+    dvorak_min = min(dvorak_wpm, na.rm = TRUE),
+    dvorak_q1 = quantile(dvorak_wpm, 0.25, na.rm = TRUE),
+    dvorak_median = median(dvorak_wpm, na.rm = TRUE),
+    dvorak_mean = mean(dvorak_wpm, na.rm = TRUE),
+    dvorak_q3 = quantile(dvorak_wpm, 0.75, na.rm = TRUE),
+    dvorak_max = max(dvorak_wpm, na.rm = TRUE),
+
+    circle_min = min(circle_wpm, na.rm = TRUE),
+    circle_q1 = quantile(circle_wpm, 0.25, na.rm = TRUE),
+    circle_median = median(circle_wpm, na.rm = TRUE),
+    circle_mean = mean(circle_wpm, na.rm = TRUE),
+    circle_q3 = quantile(circle_wpm, 0.75, na.rm = TRUE),
+    circle_max = max(circle_wpm, na.rm = TRUE)
+  )
+
+wpm_tidy <- wpm_stats %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("layout", ".value"),
+    names_sep = "_"
+  )
+
+wpm_tidy <- wpm_tidy %>%
+  select(layout, min, q1, median, mean, q3, max)
+
 @
+
+
 
 % TER table
 \begin{table}[H]
@@ -78,7 +148,7 @@ wpm <- summary(results[, c("qwerty_wpm", "dvorak_wpm", "circle_wpm")])
 \caption{Summary of Total Error Rate (TER)}
 
 <<results='asis', echo=FALSE>>=
-kable(ter, format="latex", booktabs=TRUE)
+kable(ter_tidy, format="latex", booktabs=TRUE)
 @
 \end{table}
 
@@ -87,7 +157,7 @@ kable(ter, format="latex", booktabs=TRUE)
 \centering
 \caption{Summary of Words per Minute (WPM)}
 <<results='asis', echo=FALSE>>=
-kable(wpm, format="latex", booktabs=TRUE)
+kable(wpm_tidy, format="latex", booktabs=TRUE)
 @
 \end{table}
 
@@ -210,7 +280,6 @@ Dependent var:
 %Anova RM for WPM
 <<echo=FALSE, results='hide'>>=
 library(tidyr)
-suppressMessages(library(dplyr))
 
 # Add participant ID
 results$id <- 1:nrow(results)
