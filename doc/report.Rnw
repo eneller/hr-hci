@@ -3,6 +3,18 @@
 \usepackage{graphicx}   % for including figures
 \usepackage{booktabs}   % for nicer tables
 \usepackage{float}
+\usepackage[utf8x]{inputenc}
+\usepackage[margin=1in]{geometry} % Adjust margins
+\usepackage{caption}
+\usepackage{hyperref}
+\PassOptionsToPackage{hyphens}{url} % allow breaking urls
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{parskip}
+
+\usepackage[style=ieee, backend=biber, maxnames=1, minnames=1]{biblatex}
+\addbibresource{report.bib}
 
 \begin{document}
 
@@ -48,10 +60,23 @@ This design allowed us to investigate both established and novel layouts, compar
 
 
 \section{Experiment}\label{experiment}
+<<echo=FALSE, message=FALSE>>=
+# load libraries here
+library(knitr)
+library(dplyr)
+library(tidyr)
 
+# Read the results CSV
+results <- read.csv("../data/results.csv", sep=",", header=TRUE)
+@
 \subsection{Participants}\label{participants}
+Our experiment was conducted using a small sample of 12 participants.
+All of our participants, predominantly male with an average age of \Sexpr{round(mean(results$age),digits=1)}
+were then presented all of our 3 keyboards.
 
 \subsection{Apparatus}\label{apparatus}
+The main body of our experimental apparatus was our On-Screen Keyboard, implemented using Tauri + Angular.
+TextTest \citeauthor{texttest}
 
 \subsection{Procedure}\label{procedure}
 
@@ -62,12 +87,6 @@ This design allowed us to investigate both established and novel layouts, compar
 \subsubsection{Objective Measures}\label{objective-measures}
 
 <<echo=FALSE, message=FALSE>>=
-library(knitr)
-library(dplyr)
-library(tidyr)
-
-# Read the results CSV
-results <- read.csv("../data/results.csv", sep=",", header=TRUE)
 
 ter_stats <- results %>%
   summarise(
@@ -373,4 +392,5 @@ print(posthoc)
 
 \section{Discussion}\label{discussion}
 
+\printbibliography
 \end{document}

@@ -372,3 +372,4 @@ TSWLatexianTemp*
 bib
 # Sweave-specific
 *.tex
+*-SAVE-ERROR
