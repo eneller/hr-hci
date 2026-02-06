@@ -3,6 +3,18 @@
 \usepackage{graphicx}   % for including figures
 \usepackage{booktabs}   % for nicer tables
 \usepackage{float}
+\usepackage[utf8x]{inputenc}
+\usepackage[margin=1in]{geometry} % Adjust margins
+\usepackage{caption}
+\usepackage{hyperref}
+\PassOptionsToPackage{hyphens}{url} % allow breaking urls
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{parskip}
+
+\usepackage[style=ieee, backend=biber, maxnames=1, minnames=1]{biblatex}
+\addbibresource{report.bib}
 
 \begin{document}
 
@@ -48,12 +60,32 @@ This design allowed us to investigate both established and novel layouts, compar
 
 
 \section{Experiment}\label{experiment}
+<<echo=FALSE, message=FALSE>>=
+# load libraries here
+library(knitr)
+library(dplyr)
+library(tidyr)
 
+# Read the results CSV
+results <- read.csv("../data/results.csv", sep=",", header=TRUE)
+@
 \subsection{Participants}\label{participants}
+Our experiment was conducted using a small sample of 12 participants.
+All of our participants, predominantly male with an average age of \Sexpr{round(mean(results$age),digits=1)}
+were then presented all of our 3 keyboards.
 
 \subsection{Apparatus}\label{apparatus}
+The main body of our experimental apparatus was our On-Screen Keyboard, implemented using Tauri + Angular.
+Text-entry measures were collected using TextTest \cite{texttest}.
 
 \subsection{Procedure}\label{procedure}
+Each participant was first provided with an overview of the three keyboard models and design rationale 
+They were then presented all three layouts in a counterbalanced order to mitigate common order effects
+such as practice, fatigue and boredom.
+Each keyboard was evaluated using only lowercase letters, space and enter to display the next sentence.
+Due to our chosen time constraint of 30 minutes, each participant was given three practice sentences per keyboard,
+followed by 10 recorded sentences for the experiment.
+After completion of all 3 layouts, the participants were then asked to fill out the NASA Task Load Index \cite{nasatlx}.
 
 \section{Results}\label{results}
 
@@ -71,12 +103,6 @@ Objective typing performance was assessed using words per minute (WPM) and total
 In contrast, accuracy differences between layouts were relatively small. Mean TER values were low across all conditions, with QWERTY showing a slightly higher average error rate (0.036) than DVORAK (0.0298) and CIRCLE (0.0265). Overall, the objective results suggest that layout differences were most pronounced for speed rather than error performance.
 
 <<echo=FALSE, message=FALSE>>=
-library(knitr)
-library(dplyr)
-library(tidyr)
-
-# Read the results CSV
-results <- read.csv("../data/results.csv", sep=",", header=TRUE)
 
 ter_stats <- results %>%
   summarise(
@@ -408,4 +434,5 @@ kable(
 \end{table}
 \section{Discussion}\label{discussion}
 
+\printbibliography
 \end{document}
