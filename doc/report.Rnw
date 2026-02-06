@@ -313,7 +313,7 @@ To examine the effect of keyboard layout on typing performance, repeated-measure
 
 
 \subsubsection{Typing speed (WPM)}
-The repeated-measures ANOVA revealed a significant main effect of layout on typing speed, $F(2, 22) = 106.30, p < .001$ (Table~\ref{tab:anova_wpm}). Post-hoc pairwise comparisons with Bonferroni correction indicated that QWERTY yielded significantly higher typing speeds than both DVORAK ($p < .001$) and CIRCLE ($p < .001$).
+The repeated-measures ANOVA revealed a significant main effect of layout on typing speed, $F(2, 22) = 120.56, p < .001$ (Table~\ref{tab:anova_wpm}). Post-hoc pairwise comparisons with Bonferroni correction indicated that QWERTY yielded significantly higher typing speeds than both DVORAK ($p < .001$) and CIRCLE ($p < .001$).
 
 
 %Anova RM for WPM
@@ -363,7 +363,7 @@ kable(wpm_effect,
 \end{table}
 
 \subsubsection{Total Error Rate (TER)}
-In contrast, the ANOVA for total error rate did not reveal a significant effect of layout, $F(2, 22) = 0.43, p = 0.657$ (Table~\ref{tab:anova_ter}). This indicates that accuracy was comparable across QWERTY, DVORAK, and CIRCLE layouts. Although QWERTY exhibited a slightly higher mean TER than the other layouts, these differences were not statistically significant. Therefore, while QWERTY facilitated faster typing, it did not compromise accuracy.
+In contrast, the ANOVA for total error rate did not reveal a significant effect of layout, $F(2, 22) = 0.71, p = 0.505$ (Table~\ref{tab:anova_ter}). This indicates that accuracy was comparable across QWERTY, DVORAK, and CIRCLE layouts. Although QWERTY exhibited a slightly higher mean TER than the other layouts, these differences were not statistically significant. Therefore, while QWERTY facilitated faster typing, it did not compromise accuracy.
 
 %Anova RM for TER
 <<echo=FALSE, results='hide'>>=
