@@ -57,9 +57,18 @@ This design allowed us to investigate both established and novel layouts, compar
 
 \section{Results}\label{results}
 
+This section presents the experiment results comparing the three keyboard layouts QWERTY, Dvorak and Circle.
+Performance was evaluated using typing speed measured in words per minute (WPM) and accuracy assessed through the total error rate (TER). In addition, subjective workload was collected using the NASA-TLX questionnaire.
+
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
 
+This section reports descriptive statistics for the objective performance measures and the subjective workload assessments.
+
 \subsubsection{Objective Measures}\label{objective-measures}
+
+Objective typing performance was assessed using words per minute (WPM) and total error rate (TER) as shown in table~\ref{tab:wpm} and ~\ref{tab:ter}. Descriptive statistics show that QWERTY clearly outperformed the alternative layouts in terms of typing speed. Participants achieved a mean speed of 17.28 WPM on QWERTY, whereas both DVORAK (8.27 WPM) and CIRCLE (8.45 WPM) resulted in substantially lower average speeds. This indicates that participants typed more than twice as fast on the standard QWERTY layout compared to the other two designs.
+
+In contrast, accuracy differences between layouts were relatively small. Mean TER values were low across all conditions, with QWERTY showing a slightly higher average error rate (0.036) than DVORAK (0.0298) and CIRCLE (0.0265). Overall, the objective results suggest that layout differences were most pronounced for speed rather than error performance.
 
 <<echo=FALSE, message=FALSE>>=
 library(knitr)
@@ -101,9 +110,6 @@ ter_tidy <- ter_stats %>%
 ter_tidy <- ter_tidy %>%
   select(layout, min, q1, median, mean, q3, max)
 
-# Read the results CSV
-results <- read.csv("../data/results.csv", sep=",", header=TRUE)
-
 wpm_stats <- results %>%
   summarise(
     qwerty_min = min(qwerty_wpm, na.rm = TRUE),
@@ -141,25 +147,26 @@ wpm_tidy <- wpm_tidy %>%
 @
 
 
+% WPM table
+\begin{table}[H]
+\centering
+\caption{Summary of Words per Minute (WPM)}
+\label{tab:wpm}
+<<results='asis', echo=FALSE>>=
+kable(wpm_tidy, format="latex", booktabs=TRUE)
+@
+\end{table}
 
 % TER table
 \begin{table}[H]
 \centering
 \caption{Summary of Total Error Rate (TER)}
-
+\label{tab:ter}
 <<results='asis', echo=FALSE>>=
 kable(ter_tidy, format="latex", booktabs=TRUE)
 @
 \end{table}
 
-% WPM table
-\begin{table}[H]
-\centering
-\caption{Summary of Words per Minute (WPM)}
-<<results='asis', echo=FALSE>>=
-kable(wpm_tidy, format="latex", booktabs=TRUE)
-@
-\end{table}
 
 <<echo=FALSE, results='hide'>>=
 # Create figures directory if it doesn't exist
@@ -227,21 +234,25 @@ arrows(
 dev.off()
 @
 
-% Include TER plot
+%Include ter and wpm plot
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{../figures/ter_plot.pdf}
-\caption{Total Error Rate (TER) by Keyboard Layout}
+
+\includegraphics[width=0.7\columnwidth]{../figures/wpm_plot.pdf}
+
+\vspace{-0.4cm}
+
+\includegraphics[width=0.7\columnwidth]{../figures/ter_plot.pdf}
+
+\caption{TER (top) and WPM (bottom) by keyboard layout.}
 \end{figure}
 
-% Include WPM plot
-\begin{figure}[H]
-\centering
-\includegraphics[width=\columnwidth]{../figures/wpm_plot.pdf}
-\caption{Words per Minute (WPM) by Keyboard Layout}
-\end{figure}
 
 \subsubsection{Subjective Measures}\label{subjective-measures}
+
+Subjective workload was measured using the NASA-TLX dimensions of mental demand, physical demand, effort, frustration, and perceived performance (as shown in figure \ref{fig:nasa}). Across all workload categories, QWERTY was consistently rated as the most favorable layout, indicating lower perceived demand and higher user comfort.
+
+Dvorak and Circle received generally similar subjective evaluations, with no major differences between them. However, Circle was mostly better perceived than Dvorak across all NASA-TLX dimensions, suggesting a modest subjective preference for the circular layout design. Overall, the subjective findings align with the objective performance trends, with QWERTY being clearly preferred by participants.
 
 <<echo=FALSE, results='hide'>>=
 # Read NASA-TLX data
@@ -249,8 +260,8 @@ nasa <- read.csv("../data/nasaTLX.csv")
 nasa$layout <- factor(nasa$layout)
 
 # Save boxplots as PDF using LaTeX-compatible fonts
-suppressMessages(pdf("../figures/nasa_boxplots.pdf"))
-par(mfrow=c(2,3))  # Arrange plots in 2 rows x 3 columns
+suppressMessages(pdf("../figures/nasa_boxplots.pdf", width=10, height=20, pointsize = 24))
+par(mfrow=c(3,2)) 
 boxplot(mental_demand ~ layout, data=nasa, main="Mental Demand")
 boxplot(physical_demand ~ layout, data=nasa, main="Physical Demand")
 boxplot(performance ~ layout, data=nasa, main="Performance")
@@ -265,17 +276,16 @@ dev.off()
 \centering
 \includegraphics[width=\columnwidth]{../figures/nasa_boxplots.pdf}
 \caption{NASA-TLX Scores by Keyboard Layout}
+\label{fig:nasa}
 \end{figure}
 
 \subsection{Inferential Statistics}\label{inferential-statistics}
-Independent var: Keyboard type
+To examine the effect of keyboard layout on typing performance, repeated-measures ANOVAs were conducted separately for typing speed (WPM) and total error rate (TER). 
 
-Dependent var:
-\begin{itemize}
-  \item WPM
-  \item TER
-  \item NASA-TLX
-\end{itemize}
+
+\subsubsection{Typing speed (WPM)}
+The repeated-measures ANOVA revealed a significant main effect of layout on typing speed, $F(2, 22) = 106.30, p < .001$ (Table~\ref{tab:anova_wpm}). Post-hoc pairwise comparisons with Bonferroni correction indicated that QWERTY yielded significantly higher typing speeds than both DVORAK ($p < .001$) and CIRCLE ($p < .001$).
+
 
 %Anova RM for WPM
 <<echo=FALSE, results='hide'>>=
@@ -302,7 +312,11 @@ wpm_long$layout <- factor(wpm_long$layout,
 # --- RM ANOVA for WPM ---
 anova_wpm <- aov(wpm ~ layout + Error(id/layout), data=wpm_long)
 @
-Anova WPM results:
+
+\begin{table}[H]
+\centering
+\caption{Repeated-Measurements ANOVA for WPM}
+\label{tab:anova_wpm}
 <<results='asis', echo=FALSE>>=
 wpm_tab <- summary(anova_wpm)[[2]][[1]]
 
@@ -315,10 +329,12 @@ colnames(wpm_effect) <- c("Df", "Sum Sq", "Mean Sq", "F value", "p-value")
 kable(wpm_effect,
       format="latex",
       booktabs=TRUE,
-      caption="Layout Effect on WPM",
       escape=FALSE)
 @
+\end{table}
 
+\subsubsection{Total Error Rate (TER)}
+In contrast, the ANOVA for total error rate did not reveal a significant effect of layout, $F(2, 22) = 0.43, p = 0.657$ (Table~\ref{tab:anova_ter}). This indicates that accuracy was comparable across QWERTY, DVORAK, and CIRCLE layouts. Although QWERTY exhibited a slightly higher mean TER than the other layouts, these differences were not statistically significant. Therefore, while QWERTY facilitated faster typing, it did not compromise accuracy.
 
 %Anova RM for TER
 <<echo=FALSE, results='hide'>>=
@@ -341,7 +357,11 @@ ter_long$layout <- factor(ter_long$layout,
 # --- RM ANOVA for TER ---
 anova_ter <- aov(ter ~ layout + Error(id/layout), data=ter_long)
 @
-Anova TER results:
+
+\begin{table}[H]
+\centering
+\caption{Repeated-Measures ANOVA for TER}
+\label{tab:anova_ter}
 <<results='asis', echo=FALSE>>=
 ter_tab <- summary(anova_ter)[[2]][[1]]
 
@@ -352,25 +372,40 @@ colnames(ter_effect) <- c("Df", "Sum Sq", "Mean Sq", "F value", "p-value")
 kable(ter_effect,
       format="latex",
       booktabs=TRUE,
-      caption="Repeated-Measures ANOVA for TER")
+      escape=FALSE)
 @
+\end{table}
 
+
+\subsubsection{Post-hoc Comparison for WPM}
+Post-hoc pairwise comparisons with Bonferroni adjustment were conducted to further explore differences between keyboard layouts (Table~\ref{tab:posthoc}). Results revealed that QWERTY was significantly faster than DVORAK ($p < .001$) and CIRCLE ($p < .001$), confirming the advantage of the standard layout. The difference between DVORAK and CIRCLE was not significant ($p = 1.000$), indicating comparable performance between these alternative layouts. These comparisons highlight that the observed main effect of layout on typing speed is primarily driven by the superior performance of QWERTY, while the two non-standard layouts yield similar typing speeds.
 
 % Post-Hoc analysis with bonferroni correction for WPM
-<<echo=FALSE, results='hide'>>=
+\begin{table}[H]
+\centering
+\caption{Post-hoc-comparison of layouts with Bonferroni correction}
+\label{tab:posthoc}
+<<echo=FALSE, results='asis'>>=
 suppressMessages(library(emmeans))
 
 suppressMessages(emm_wpm <- emmeans(anova_wpm, ~ layout))
 
 posthoc <- pairs(emm_wpm, adjust = "bonferroni")
+posthoc_df <- as.data.frame(posthoc)
 
-print(posthoc)
+posthoc_df <- posthoc_df %>%
+  mutate(p.value = ifelse(p.value < 0.001, "$<0.001$", sprintf("%.3f", p.value)))
+
+kable(
+  posthoc_df,
+  format = "latex",
+  booktabs = TRUE,
+  digits = 3,
+  float=FALSE,
+  escape=FALSE
+)
 @
-
-\subsubsection{Objective Measures}\label{objective-measures-1}
-
-\subsubsection{Subjective Measures}\label{subjective-measures-1}
-
+\end{table}
 \section{Discussion}\label{discussion}
 
 \end{document}
