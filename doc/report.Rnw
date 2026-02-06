@@ -76,9 +76,16 @@ were then presented all of our 3 keyboards.
 
 \subsection{Apparatus}\label{apparatus}
 The main body of our experimental apparatus was our On-Screen Keyboard, implemented using Tauri + Angular.
-TextTest \citeauthor{texttest}
+Text-entry measures were collected using TextTest \cite{texttest}.
 
 \subsection{Procedure}\label{procedure}
+Each participant was first provided with an overview of the three keyboard models and design rationale 
+They were then presented all three layouts in a counterbalanced order to mitigate common order effects
+such as practice, fatigue and boredom.
+Each keyboard was evaluated using only lowercase letters, space and enter to display the next sentence.
+Due to our chosen time constraint of 30 minutes, each participant was given three practice sentences per keyboard,
+followed by 10 recorded sentences for the experiment.
+After completion of all 3 layouts, the participants were then asked to fill out the NASA Task Load Index \cite{nasatlx}.
 
 \section{Results}\label{results}
 
