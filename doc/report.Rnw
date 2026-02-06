@@ -25,6 +25,13 @@ We evaluated three on-screen keyboard layouts: QWERTY, Dvorak, and Circle. Objec
 Subjective workload ratings assessed via NASA-TLX were similar for Dvorak and Circle, but QWERTY was perceived as less demanding. These results indicate that QWERTY offers superior typing speed, whereas error rates and perceived workload are comparable across layouts.
 
 \section{Introduction}\label{introduction}
+On-screen keyboards have become increasingly relevant for applications where traditional physical keyboards are not practical, such as in virtual environments, accessibility tools, or experimental settings. Unlike physical keyboards, on-screen keyboards require users to select keys via a pointing device, such as a mouse, which introduces unique challenges in terms of speed, accuracy, and ergonomic efficiency.
+
+Traditional physical keyboard layouts, such as QWERTY and Dvorak, have been extensively studied and optimized for mechanical typing. QWERTY, the most commonly used layout, was originally designed for typewriters and provides a familiar arrangement for most users. Dvorak, in contrast, aims to increase typing efficiency by placing frequently used letters on the home row to minimize finger movement. While these layouts are well understood for physical typing, their effectiveness may differ when key selection is performed via a pointing device.
+
+In addition to established layouts, novel designs have emerged to exploit the flexibility of on-screen interfaces. For example, circular or radial layouts can optimize visual prominence and spatial reachability of keys, potentially improving selection speed and reducing cognitive effort when using a mouse. However, empirical comparisons of these alternative layouts with traditional designs remain limited, particularly with respect to both objective measures such as words per minute (WPM) and total error rate (TER), and subjective workload assessments.
+
+The present study investigates three on-screen keyboard layouts: QWERTY, Dvorak, and a custom-designed Circle layout. Participants entered text using a mouse to select keys, allowing us to evaluate typing speed, accuracy, and perceived workload across different layouts. The results provide insights into the efficiency and usability of established and novel on-screen keyboard designs in contexts where mouse-based input is required.
 
 \section{Keyboard Designs}\label{keyboard-designs}
 Three on-screen keyboard layouts were evaluated in this study: QWERTY, Dvorak, and a custom-designed Circle layout.
@@ -452,6 +459,17 @@ kable(
 }
 \end{table}
 \section{Discussion}\label{discussion}
+The results of this study provide clear evidence that keyboard layout significantly affects typing performance when using a mouse to select keys on an on-screen keyboard. Participants typed substantially faster on the QWERTY layout compared to both the Dvorak and Circle layouts, with mean WPM values more than twice as high. This finding indicates that prior familiarity with the QWERTY layout plays a crucial role in enabling efficient text entry, even when interaction is performed via a pointing device rather than physical key presses. 
+
+In contrast, total error rates were low across all layouts and did not differ significantly. This suggests that participants were able to maintain accuracy regardless of layout, and that the speed advantage of QWERTY did not come at the cost of increased errors. The similar TER values across layouts indicate that the Circle layout, despite its unconventional design, and Dvorak, despite its unfamiliarity, are viable for accurate text entry with a mouse, even if they do not provide a speed advantage.
+
+Subjective workload assessments using NASA-TLX mirrored the objective performance results. QWERTY was consistently rated as less mentally demanding and effortful, reflecting participants' familiarity and confidence with this layout. Dvorak and Circle were evaluated similarly across most dimensions, with Circle slightly preferred in some cases, indicating that its design may offer modest ergonomic or cognitive benefits compared to Dvorak, although these did not translate into faster typing speeds.
+
+Overall, the findings highlight several important points for the design of on-screen keyboards for mouse-based input. First, established layouts like QWERTY remain highly efficient due to user familiarity, even in non-traditional input modalities. Second, novel layouts such as Circle can achieve comparable accuracy and subjective comfort, suggesting potential for specialized applications where visual ergonomics or reach optimization is critical. Finally, training and experience are likely necessary for users to achieve performance gains with alternative layouts like Dvorak or Circle.
+
+In practical terms, these results suggest that for general-purpose applications requiring rapid text entry via a mouse, QWERTY should be the default layout. However, alternative designs could be explored in contexts where visual salience, ergonomics, or user-specific customization is prioritized, provided users are given adequate practice to adapt to the new layout.
+
+Future research should investigate longer-term adaptation effects, as performance with unfamiliar layouts may improve substantially with training. Additionally, studies could examine the impact of alternative pointing devices (e.g., trackpads, styluses) and larger participant samples to generalize findings across different user populations. Such work would help refine the design principles of on-screen keyboards for a range of input scenarios beyond traditional physical typing.
 
 \printbibliography
 \end{document}
