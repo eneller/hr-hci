@@ -2,6 +2,7 @@
 
 \usepackage{graphicx}   % for including figures
 \usepackage{booktabs}   % for nicer tables
+\usepackage{float}
 
 \begin{document}
 
@@ -21,25 +22,25 @@ Three on-screen keyboard layouts were evaluated in this study: QWERTY, Dvorak, a
 
 This design allowed us to investigate both established and novel layouts, comparing objective typing performance, error rates, and subjective workload.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/qwerty-pic.png}
+    \includegraphics[width=0.45\textwidth]{images/qwerty-pic.png}
     \caption{QWERTY Keyboard Layout}
     \label{fig:qwerty}
 \end{figure}
 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/dvorak-pic.png}
+    \includegraphics[width=0.45\textwidth]{images/dvorak-pic.png}
     \caption{Dvorak Keyboard Layout}
     \label{fig:dvorak}
 \end{figure}
 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{images/circle-pic.png}
+    \includegraphics[width=0.3\textwidth]{images/circle-pic.png}
     \caption{Circle Keyboard Layout}
     \label{fig:circle}
 \end{figure}
@@ -71,7 +72,7 @@ wpm <- summary(results[, c("qwerty_wpm", "dvorak_wpm", "circle_wpm")])
 @
 
 % TER table
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \scriptsize
 <<results='asis', echo=FALSE>>=
@@ -81,7 +82,7 @@ kable(ter, format="latex", booktabs=TRUE)
 \end{table}
 
 % WPM table
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \scriptsize
 <<results='asis', echo=FALSE>>=
@@ -90,7 +91,7 @@ kable(wpm, format="latex", booktabs=TRUE)
 \caption{Summary of Words per Minute (WPM)}
 \end{table}
 
-<<echo=FALSE>>=
+<<echo=FALSE, results='hide'>>=
 # Create figures directory if it doesn't exist
 dir.create("../figures", showWarnings=FALSE)
 
@@ -116,7 +117,7 @@ ter_stats <- rbind(
 )
 
 # Save TER barplot as PDF using LaTeX-compatible fonts
-pdf("../figures/ter_plot.pdf")
+suppressMessages(pdf("../figures/ter_plot.pdf"))
 bar_pos <- barplot(
   ter_stats[,"mean"],
   names.arg=c("QWERTY","DVORAK","CIRCLE"),
@@ -140,7 +141,7 @@ wpm_stats <- rbind(
 )
 
 # Save WPM barplot as PDF using LaTeX-compatible fonts
-pdf("../figures/wpm_plot.pdf")
+suppressMessages(pdf("../figures/wpm_plot.pdf"))
 bar_pos <- barplot(
   wpm_stats[,"mean"],
   names.arg=c("QWERTY","DVORAK","CIRCLE"),
@@ -157,14 +158,14 @@ dev.off()
 @
 
 % Include TER plot
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{../figures/ter_plot.pdf}
 \caption{Total Error Rate (TER) by Keyboard Layout}
 \end{figure}
 
 % Include WPM plot
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{../figures/wpm_plot.pdf}
 \caption{Words per Minute (WPM) by Keyboard Layout}
@@ -172,13 +173,13 @@ dev.off()
 
 \subsubsection{Subjective Measures}\label{subjective-measures}
 
-<<echo=FALSE>>=
+<<echo=FALSE, results='hide'>>=
 # Read NASA-TLX data
 nasa <- read.csv("../data/nasaTLX.csv")
 nasa$layout <- factor(nasa$layout)
 
 # Save boxplots as PDF using LaTeX-compatible fonts
-pdf("../figures/nasa_boxplots.pdf")
+suppressMessages(pdf("../figures/nasa_boxplots.pdf"))
 par(mfrow=c(2,3))  # Arrange plots in 2 rows x 3 columns
 boxplot(mental_demand ~ layout, data=nasa, main="Mental Demand")
 boxplot(physical_demand ~ layout, data=nasa, main="Physical Demand")
@@ -190,7 +191,7 @@ dev.off()
 @
 
 % Include NASA-TLX boxplots
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{../figures/nasa_boxplots.pdf}
 \caption{NASA-TLX Scores by Keyboard Layout}
@@ -208,9 +209,9 @@ Dependent var:
 - Nasa-TLX
 
 %Anova RM for WPM
-<<echo=FALSE>>=
+<<echo=FALSE, results='hide'>>=
 library(tidyr)
-library(dplyr)
+suppressMessages(library(dplyr))
 
 # Add participant ID
 results$id <- 1:nrow(results)
@@ -232,13 +233,28 @@ wpm_long$layout <- factor(wpm_long$layout,
 
 # --- RM ANOVA for WPM ---
 anova_wpm <- aov(wpm ~ layout + Error(id/layout), data=wpm_long)
+@
+Anova WPM results:
+<<results='asis', echo=FALSE>>=
+library(knitr)
+wpm_tab <- summary(anova_wpm)[[2]][[1]]
 
-# Print ANOVA table
-summary(anova_wpm)
+wpm_effect <- wpm_tab["layout", , drop=FALSE]
+
+wpm_effect$`Pr(>F)` <- "$p< .001$"
+
+colnames(wpm_effect) <- c("Df", "Sum Sq", "Mean Sq", "F value", "p-value")
+
+kable(wpm_effect,
+      format="latex",
+      booktabs=TRUE,
+      caption="Layout Effect on WPM",
+      escape=FALSE)
 @
 
+
 %Anova RM for TER
-<<echo=FALSE>>=
+<<echo=FALSE, results='hide'>>=
 
 # --- TER Long Format ---
 ter_long <- results %>%
@@ -257,12 +273,24 @@ ter_long$layout <- factor(ter_long$layout,
 
 # --- RM ANOVA for TER ---
 anova_ter <- aov(ter ~ layout + Error(id/layout), data=ter_long)
+@
+Anova TER results:
+<<results='asis', echo=FALSE>>=
+ter_tab <- summary(anova_ter)[[2]][[1]]
 
-summary(anova_ter)
+ter_effect <- ter_tab["layout", , drop=FALSE]
+
+colnames(ter_effect) <- c("Df", "Sum Sq", "Mean Sq", "F value", "p-value")
+
+kable(ter_effect,
+      format="latex",
+      booktabs=TRUE,
+      caption="Repeated-Measures ANOVA for TER")
 @
 
+
 % Post-Hoc analysis with bonferroni correction for WPM
-<<echo=FALSE>>=
+<<echo=FALSE, results='hide'>>=
 suppressMessages(library(emmeans))
 
 suppressMessages(emm_wpm <- emmeans(anova_wpm, ~ layout))
