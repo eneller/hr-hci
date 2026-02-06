@@ -127,5 +127,6 @@ posthoc_df <- as.data.frame(posthoc)
 posthoc_df <- posthoc_df %>%
   mutate(p.value = ifelse(p.value < 0.001, "$<0.001$", sprintf("%.3f", p.value)))
 
+posthoc_df$SE <- NULL
 posthoc_df
 ```
