@@ -21,7 +21,8 @@
 \maketitle
 
 \section{Abstract}\label{abstract}
-We evaluated three on-screen keyboard layouts: QWERTY, Dvorak, and Circle. Objective performance, measured in words per minute (WPM), showed a significant main effect of layout. Post-hoc comparisons revealed that QWERTY was significantly faster than both Dvorak and Circle, while no difference was observed between Dvorak and Circle. Total error rate (TER) did not differ significantly between layouts. Subjective workload ratings assessed via NASA-TLX were similar for Dvorak and Circle, but QWERTY was perceived as less demanding. These results indicate that QWERTY offers superior typing speed, whereas error rates and perceived workload are comparable across layouts.
+We evaluated three on-screen keyboard layouts: QWERTY, Dvorak, and Circle. Objective performance, measured in words per minute (WPM), showed a significant main effect of layout. Post-hoc comparisons revealed that QWERTY was significantly faster than both Dvorak and Circle, while no difference was observed between Dvorak and Circle. Total error rate (TER) did not differ significantly between layouts.
+Subjective workload ratings assessed via NASA-TLX were similar for Dvorak and Circle, but QWERTY was perceived as less demanding. These results indicate that QWERTY offers superior typing speed, whereas error rates and perceived workload are comparable across layouts.
 
 \section{Introduction}\label{introduction}
 
@@ -71,6 +72,7 @@ library(tidyr)
 # Read the results CSV
 results <- read.csv("../data/results.csv", sep=",", header=TRUE)
 @
+
 \subsection{Participants}\label{participants}
 Our experiment was conducted using a small sample of \Sexpr{nrow(results)} participants.
 All of our participants, predominantly male with an average age of \Sexpr{round(mean(results$age),digits=1)},
@@ -93,7 +95,8 @@ After completion of all 3 layouts, the participants were then asked to fill out 
 \section{Results}\label{results}
 
 This section presents the experiment results comparing the three keyboard layouts QWERTY, Dvorak and Circle.
-Performance was evaluated using typing speed measured in words per minute (WPM) and accuracy assessed through the total error rate (TER). In addition, subjective workload was collected using the NASA-TLX questionnaire.
+Performance was evaluated using typing speed measured in words per minute (WPM) and accuracy assessed through the total error rate (TER).
+In addition, subjective workload was collected using the NASA-TLX questionnaire.
 
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
 
@@ -181,9 +184,11 @@ wpm_tidy <- wpm_tidy %>%
 \centering
 \caption{Summary of Words per Minute (WPM)}
 \label{tab:wpm}
+\resizebox{\columnwidth}{!}{
 <<results='asis', echo=FALSE>>=
 kable(wpm_tidy, format="latex", booktabs=TRUE)
 @
+}
 \end{table}
 
 % TER table
@@ -191,9 +196,11 @@ kable(wpm_tidy, format="latex", booktabs=TRUE)
 \centering
 \caption{Summary of Total Error Rate (TER)}
 \label{tab:ter}
+\resizebox{\columnwidth}{!}{
 <<results='asis', echo=FALSE>>=
 kable(ter_tidy, format="latex", booktabs=TRUE)
 @
+}
 \end{table}
 
 
@@ -279,7 +286,10 @@ dev.off()
 
 \subsubsection{Subjective Measures}\label{subjective-measures}
 
-Subjective workload was measured using the NASA-TLX dimensions of mental demand, physical demand, effort, frustration, and perceived performance (as shown in figure \ref{fig:nasa}). Across all workload categories, QWERTY was consistently rated as the most favorable layout, indicating lower perceived demand and higher user comfort.
+Subjective workload was measured using the NASA-TLX dimensions of
+mental demand, physical demand, effort, frustration, and perceived performance (as shown in \autoref{fig:nasa}).
+Across all workload categories, QWERTY was consistently rated as the most favorable layout,
+indicating lower perceived demand and higher user comfort.
 
 Dvorak and Circle received generally similar subjective evaluations, with no major differences between them. However, Circle was mostly better perceived than Dvorak across all NASA-TLX dimensions, suggesting a modest subjective preference for the circular layout design. Overall, the subjective findings align with the objective performance trends, with QWERTY being clearly preferred by participants.
 
@@ -346,6 +356,7 @@ anova_wpm <- aov(wpm ~ layout + Error(id/layout), data=wpm_long)
 \centering
 \caption{Repeated-Measurements ANOVA for WPM}
 \label{tab:anova_wpm}
+\resizebox{\columnwidth}{!}{
 <<results='asis', echo=FALSE>>=
 wpm_tab <- summary(anova_wpm)[[2]][[1]]
 
@@ -360,6 +371,7 @@ kable(wpm_effect,
       booktabs=TRUE,
       escape=FALSE)
 @
+}
 \end{table}
 
 \subsubsection{Total Error Rate (TER)}
@@ -391,6 +403,7 @@ anova_ter <- aov(ter ~ layout + Error(id/layout), data=ter_long)
 \centering
 \caption{Repeated-Measures ANOVA for TER}
 \label{tab:anova_ter}
+\resizebox{\columnwidth}{!}{
 <<results='asis', echo=FALSE>>=
 ter_tab <- summary(anova_ter)[[2]][[1]]
 
@@ -403,6 +416,7 @@ kable(ter_effect,
       booktabs=TRUE,
       escape=FALSE)
 @
+}
 \end{table}
 
 
@@ -414,6 +428,7 @@ Post-hoc pairwise comparisons with Bonferroni adjustment were conducted to furth
 \centering
 \caption{Post-hoc-comparison of layouts with Bonferroni correction}
 \label{tab:posthoc}
+\resizebox{\columnwidth}{!}{
 <<echo=FALSE, results='asis'>>=
 suppressMessages(library(emmeans))
 
@@ -434,6 +449,7 @@ kable(
   escape=FALSE
 )
 @
+}
 \end{table}
 \section{Discussion}\label{discussion}
 
