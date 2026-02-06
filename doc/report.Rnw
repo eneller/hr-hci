@@ -16,7 +16,8 @@ Three on-screen keyboard layouts were evaluated in this study: QWERTY, Dvorak, a
 
 1. QWERTY: The standard layout commonly used in English typing, serving as a baseline for comparison.
 
-2. Dvorak: An alternative layout designed to increase typing efficiency by placing frequently used letters in more accessible positions.
+2. Dvorak: An alternative layout designed to increase typing efficiency for physical keyboards
+by placing frequently used letters in the home row, minimizing finger movements.
 
 3. Circle Layout: A custom layout developed for this study, in which keys were arranged in a circular pattern. Letters that occur more frequently in English were positioned closer to the center and rendered larger to facilitate faster access. Less frequently used letters were placed toward the periphery and sized smaller, aiming to optimize ergonomic reach and visual salience.
 
@@ -60,7 +61,7 @@ This design allowed us to investigate both established and novel layouts, compar
 
 \subsubsection{Objective Measures}\label{objective-measures}
 
-<<echo=FALSE>>=
+<<echo=FALSE, message=FALSE>>=
 library(knitr)
 
 # Read the results CSV
@@ -74,21 +75,20 @@ wpm <- summary(results[, c("qwerty_wpm", "dvorak_wpm", "circle_wpm")])
 % TER table
 \begin{table}[H]
 \centering
-\scriptsize
+\caption{Summary of Total Error Rate (TER)}
+
 <<results='asis', echo=FALSE>>=
 kable(ter, format="latex", booktabs=TRUE)
 @
-\caption{Summary of Total Error Rate (TER)}
 \end{table}
 
 % WPM table
 \begin{table}[H]
 \centering
-\scriptsize
+\caption{Summary of Words per Minute (WPM)}
 <<results='asis', echo=FALSE>>=
 kable(wpm, format="latex", booktabs=TRUE)
 @
-\caption{Summary of Words per Minute (WPM)}
 \end{table}
 
 <<echo=FALSE, results='hide'>>=
@@ -198,15 +198,14 @@ dev.off()
 \end{figure}
 
 \subsection{Inferential Statistics}\label{inferential-statistics}
-Independent var: 
-- QWERTY
-- DVORAK
-- Circle
+Independent var: Keyboard type
 
 Dependent var:
-- WPM
-- TER
-- Nasa-TLX
+\begin{itemize}
+  \item WPM
+  \item TER
+  \item NASA-TLX
+\end{itemize}
 
 %Anova RM for WPM
 <<echo=FALSE, results='hide'>>=
@@ -236,7 +235,6 @@ anova_wpm <- aov(wpm ~ layout + Error(id/layout), data=wpm_long)
 @
 Anova WPM results:
 <<results='asis', echo=FALSE>>=
-library(knitr)
 wpm_tab <- summary(anova_wpm)[[2]][[1]]
 
 wpm_effect <- wpm_tab["layout", , drop=FALSE]
