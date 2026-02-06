@@ -1,0 +1,21 @@
+---
+title: "On-Screen Keyboard Layout Study"
+subtitle: "Human-Computer Interfaces"
+date: "`r Sys.Date()`"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+## Implementation
+![tauri](images/tauri.png)
+
+## Keyboard Design - Qwerty
+![qwerty](images/qwerty-pic.png)
+
+## Keyboard Design - Dvorak
+![dvorak](images/dvorak-pic.png)
+
+## Keyboard Design - Circle
+![circle](images/circle-pic.png)

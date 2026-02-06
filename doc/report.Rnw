@@ -16,7 +16,9 @@
 \usepackage[style=ieee, backend=biber, maxnames=1, minnames=1]{biblatex}
 \addbibresource{report.bib}
 
+\title{On-Screen Keyboard Layout Study}
 \begin{document}
+\maketitle
 
 \section{Abstract}\label{abstract}
 We evaluated three on-screen keyboard layouts: QWERTY, Dvorak, and Circle. Objective performance, measured in words per minute (WPM), showed a significant main effect of layout. Post-hoc comparisons revealed that QWERTY was significantly faster than both Dvorak and Circle, while no difference was observed between Dvorak and Circle. Total error rate (TER) did not differ significantly between layouts. Subjective workload ratings assessed via NASA-TLX were similar for Dvorak and Circle, but QWERTY was perceived as less demanding. These results indicate that QWERTY offers superior typing speed, whereas error rates and perceived workload are comparable across layouts.
@@ -70,13 +72,14 @@ library(tidyr)
 results <- read.csv("../data/results.csv", sep=",", header=TRUE)
 @
 \subsection{Participants}\label{participants}
-Our experiment was conducted using a small sample of 12 participants.
-All of our participants, predominantly male with an average age of \Sexpr{round(mean(results$age),digits=1)}
-were then presented all of our 3 keyboards.
+Our experiment was conducted using a small sample of \Sexpr{nrow(results)} participants.
+All of our participants, predominantly male with an average age of \Sexpr{round(mean(results$age),digits=1)},
+were students familiar with computers.
 
 \subsection{Apparatus}\label{apparatus}
 The main body of our experimental apparatus was our On-Screen Keyboard, implemented using Tauri + Angular.
-Text-entry measures were collected using TextTest \cite{texttest}.
+It provides a view of exactly one of the layouts described in \autoref{keyboard-designs} at a time.
+Text-entry measures were collected using TextTest \cite{texttest}, with everything running on a stationary Windows 11 computer.
 
 \subsection{Procedure}\label{procedure}
 Each participant was first provided with an overview of the three keyboard models and design rationale 
