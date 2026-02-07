@@ -328,6 +328,7 @@ dev.off()
 \subsection{Inferential Statistics}\label{inferential-statistics}
 To examine the effect of keyboard layout on typing performance, repeated-measures ANOVAs were conducted separately for typing speed (WPM) and total error rate (TER). 
 
+%TODO Friedman test of Subjective
 
 \subsubsection{Typing speed (WPM)}
 The repeated-measures ANOVA revealed a significant main effect of layout on typing speed, $F(2, 22) = 120.56, p < .001$ (Table~\ref{tab:anova_wpm}). Post-hoc pairwise comparisons with Bonferroni correction indicated that QWERTY yielded significantly higher typing speeds than both DVORAK ($p < .001$) and CIRCLE ($p < .001$).
